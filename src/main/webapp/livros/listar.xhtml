@@ -1,25 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-	<title>Lista de livros</title>
+<h:head></h:head>
+<title>Lista de livros</title>
 <body>
-	<h:form>	
+	<p:messages id="mensagem" />
+
+	<h:form id="frmListagem">
 		<p:dataTable value="#{livroController.livros}" var="livro">
 			<p:column>
 				<f:facet name="header">Código</f:facet>
 				#{livro.id}
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">Tiulo</f:facet>
 				#{livro.titulo}
 			</p:column>
+
+			<p:column>
+				<p:commandButton icon="ui-icon-search"
+					oncomplete="PF('detalhes').show()" process="@this"
+					update=":frmDetalhes">
+
+					<f:setPropertyActionListener value="#{livro}"
+						target="#{livroController.livro}" />
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
 	</h:form>
-</body> 
+
+	<p:dialog widgetVar="detalhes" modal="true" height="400" width="400">
+		<h:form id="frmDetalhes">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="ID:" />
+				<h:outputText value="#{livroController.livro.id}" />
+				<h:outputLabel value="Titulo:" />
+				<h:outputText value="#{livroController.livro.titulo}" />
+				<h:outputLabel value="ISBN:" />
+				<p:inputText value="#{livroController.livro.IBSN}" />
+			</h:panelGrid>
+			<p:commandButton value="Salvar" action="#{livroController.salvar}"
+				process="@form" update=":frmDetalhes :frmListagem :mensagem"
+				oncomplete="PF('detalhes').hide();"/>
+		</h:form>
+	</p:dialog>
+
+</body>
 </html>

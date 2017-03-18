@@ -9,22 +9,20 @@
 	<title>Livraria</title>
 </h:head>
 <h:body>
+	<p:messages id="mensagem" />
+
 	<h:form>
-	
-	<p:messages/>
-	
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Usuario: " />
 			<p:inputText value="#{sessaoController.usuario}" />
-			
+
 			<h:outputLabel value="Senha: " />
 			<p:password value="#{sessaoController.senha}" />
 		</h:panelGrid>
-		
+
 		<p:commandButton value="Login" action="#{sessaoController.login}"
-			process="@form"
-			update="@form"/>
-		
+			process="@form" update="@form :mensagem" />
+
 	</h:form>
 </h:body>
 </html>
