@@ -23,13 +23,13 @@ public class LivroController implements Serializable {
 
 	private Livro livro;
 
-	public List<Livro> getLivros() {
-		return livroDAO.listarTodos();
-	}
-
 	@PostConstruct
 	public void init() {
 		livro = new Livro();
+	}
+
+	public List<Livro> getLivros() {
+		return livroDAO.listarTodos();
 	}
 
 	public void salvar() {
@@ -38,12 +38,23 @@ public class LivroController implements Serializable {
 			livroDAO.salvar(livro);
 
 			livro = new Livro();
-			
-			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Editado com sucesso.", "Editado com sucesso"));
+
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage("Salvo com sucesso.", "Salvo com sucesso"));
 		} catch (RuntimeException erro) {
-			FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro ao editar.", "Erro ao edita"));
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao Salvar.", "Erro ao Salvar"));
 		}
+	}
+
+	public void editar() {
+		FacesContext.getCurrentInstance().addMessage("",
+				new FacesMessage("Não implementado.", "Não implementado"));
+	}
+	
+	public void excluir(){
+		FacesContext.getCurrentInstance().addMessage("",
+				new FacesMessage("Não implementado.", "Não implementado"));
 	}
 
 	public Livro getLivro() {

@@ -1,21 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
+<h:head></h:head>
+<body>
+	<p:messages id="msg" showIcon="false" closable="true" autoUpdate="true" />
+
+
 	<div style="width: 100%; height: 20px;">
 		<ui:insert name="topo">
-			<h:outputText value="#{sessaoMB.usuario}" />
+			<div style="float: right;">Usuário logado:
+				#{sessaoController.usuario}</div>
 		</ui:insert>
 	</div>
 	<aside style="width:20%;float:left;"> <ui:insert name="menu">
 		<h:form id="formMenu">
 			<ul>
-				<li><h:commandLink action="/livros/listar?faces-redirect=true" value="Livros" /> </li>
+				<li><h:commandLink action="/livros/listar?faces-redirect=true"
+						value="Livros" /></li>
 			</ul>
 		</h:form>
 	</ui:insert> </aside>
@@ -26,5 +31,5 @@
 	<div style="position: absolute; bottom: 0; width: 100%">
 		<ui:insert name="fundo">@Tafarel Mello</ui:insert>
 	</div>
-</body> 
+</body>
 </html>

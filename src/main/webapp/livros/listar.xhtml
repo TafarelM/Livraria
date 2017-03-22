@@ -30,6 +30,12 @@
 						process="@this" update=":detalhe" icon="ui-icon-search">
 						<f:setPropertyActionListener value="#{l}"
 							target="#{livroController.livro}" />
+
+						<p:commandButton icon="ui-icon-pencil"
+							action="#{livroController.editar}" />
+
+						<p:commandButton icon="ui-icon-trash"
+							action="#{livroController.editar}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -43,7 +49,7 @@
 					<h:outputLabel value="ISBN" />
 					<p:inputText value="#{livroController.livro.IBSN}"></p:inputText>
 				</h:panelGrid>
-				<p:commandButton value="Salvar" action="#{livroController.salvar()}"
+				<p:commandButton value="Salvar" action="#{livroController.salvar}"
 					process="@form" update="@form :listagem" />
 			</h:form>
 		</p:dialog>

@@ -2,9 +2,11 @@ package com.tafarelmello.livraria.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Livro implements Serializable {
@@ -17,6 +19,10 @@ public class Livro implements Serializable {
 	private BigDecimal valor;
 	private int qtPaginas;
 	private Boolean capadura;
+	private Date dataLancamento;
+
+	@ManyToOne
+	private Estado estado;
 
 	public Long getId() {
 		return id;
@@ -64,6 +70,22 @@ public class Livro implements Serializable {
 
 	public void setCapadura(Boolean capadura) {
 		this.capadura = capadura;
+	}
+
+	public Date getDataLancamento() {
+		return dataLancamento;
+	}
+
+	public void setDataLancamento(Date dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 }

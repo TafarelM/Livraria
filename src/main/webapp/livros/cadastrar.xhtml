@@ -1,34 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/principal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-<h:head>
-	<title>Cadastro de livro</title>
-</h:head>
-<h:body>
-	<p:messages id="mensagem" closable="true" autoUpdate="true" />
+	<ui:define name="corpo">
 
-	<h:form id="frmCadastrar" >		
-		<div style="float: right;" >
-			Usuário logado: #{sessaoController.usuario}
-		</div>
-	
-		<p:panelGrid columns="2">
-			<h:outputText value="id: " />
-			<h:inputText  value="#{livroController.livro.id}" />
-			
-			<h:outputText value="Titulo: " />
-			<h:inputText  value="#{livroController.livro.titulo}" />
-			
-			<h:outputText value="ISBN: " />			
-			<h:inputText  value="#{livroController.livro.IBSN}" />
-		</p:panelGrid>
-		
-		<p:commandButton action="#{livroController.salvar}" value="salvar" update="@form" />
-	</h:form>
-</h:body>
-</html>
+		<h:form id="frmCadastrar">
+
+			<p:panelGrid columns="2">
+				<h:outputText value="id: " />
+				<h:inputText value="#{livroController.livro.id}" />
+
+				<h:outputText value="Titulo: " />
+				<h:inputText value="#{livroController.livro.titulo}" />
+
+				<h:outputText value="ISBN: " />
+				<h:inputText value="#{livroController.livro.IBSN}" />
+
+				<h:outputText value="Data de lançamento: " />
+				<h:inputText value="#{livroController.livro.dataLancamento}">
+					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:inputText>
+
+				<h:outputLabel value="Estado:" />
+				<h:selectOneMenu value="#{livroController.livro.estado}"
+					converter="estadoConverter">
+					
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado" />
+					
+					<f:selectItems value="#{sessaoController.listEstado}" var="estado"
+						itemLabel="#{estado.nome}" itemValue="#{estado}" />
+				</h:selectOneMenu>
+			</p:panelGrid>
+
+			<p:commandButton action="#{livroController.salvar}" value="salvar"
+				update="@form" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>
