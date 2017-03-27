@@ -1,7 +1,5 @@
 package com.tafarelmello.livraria.services;
 
-
-
 import java.util.List;
 
 import javax.inject.Inject;
