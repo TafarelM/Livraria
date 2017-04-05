@@ -1,40 +1,65 @@
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/templates/principal.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
+	template="/templates/principal.xhtml">
 
 	<ui:define name="corpo">
-
+		<p:tooltip />
 		<h:form id="frmCadastrar">
 
-			<p:panelGrid columns="2">
-				<h:outputText value="id: " />
-				<h:inputText value="#{livroController.livro.id}" />
+			<h:panelGrid columns="3">
 
-				<h:outputText value="Titulo: " />
-				<h:inputText value="#{livroController.livro.titulo}" />
+				<p:outputLabel for="titulo" value="Titulo"></p:outputLabel>
+				<p:inputText id="titulo" value="#{livroController.livro.titulo}"
+					required="true" requiredMessage="O Campo Titulo é obrigatório." />
+				<p:message for="titulo" display="icon" />
 
-				<h:outputText value="ISBN: " />
-				<h:inputText value="#{livroController.livro.IBSN}" />
+				<p:outputLabel for="ibsn" value="ISBN: " />
+				<p:inputNumber id="ibsn" value="#{livroController.livro.IBSN}"
+					required="true" requiredMessage="O Campo IBSN é obrigatório." />
+				<p:message for="ibsn" display="icon" />
 
-				<h:outputText value="Data de lançamento: " />
-				<h:inputText value="#{livroController.livro.dataLancamento}">
-					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</h:inputText>
+				<p:outputLabel for="valor" value="Valor: " />
+				<p:inputNumber id="valor" value="#{livroController.livro.valor}"
+					required="true" requiredMessage="O valor é obrigatorio" />
+				<p:message for="titulo" display="icon" />
 
-				<h:outputLabel value="Estado:" />
-				<h:selectOneMenu value="#{livroController.livro.estado}"
-					converter="estadoConverter">
-					
-					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado" />
-					
-					<f:selectItems value="#{sessaoController.listEstado}" var="estado"
+				<p:outputLabel for="pagina" value="Qtd paginas" />
+				<p:inputText id="pagina" value="#{livroController.livro.qtPaginas}"
+					label="pagina">
+					<f:validateDoubleRange minimum="0" maximum="9999999" />
+				</p:inputText>
+				<p:message for="pagina" display="icon" />
+
+				<p:outputLabel value="Capa Dura" />
+				<p:selectBooleanButton id="capadura"
+					value="#{livroController.livro.capadura}" onLabel="Yes"
+					offLabel="No" />
+				<p:message for="capadura" display="icon" />
+
+				<p:outputLabel for="data" value="Data de Lançamento: " />
+				<p:calendar id="data"
+					value="#{livroController.livro.dataLancamento}" required="true"
+					requiredMessage="O Campo Data de lançamento é obrigatório."
+					locale="pt_BR">					
+				</p:calendar>
+				<p:message for="data" display="icon" />				
+
+				<p:outputLabel for="estado" value="Estado:" />
+				<p:selectOneMenu id="estado" value="#{livroController.livro.estado}"
+					converter="estadoConverter" required="true"
+					requiredMessage="O Campo Estado é obrigatório.">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um estado" />
+
+					<f:selectItems value="#{sessaoController.listEstados}" var="estado"
 						itemLabel="#{estado.nome}" itemValue="#{estado}" />
-				</h:selectOneMenu>
-			</p:panelGrid>
+
+				</p:selectOneMenu>
+				<p:message for="ibsn" display="icon" />
+			</h:panelGrid>
 
 			<p:commandButton action="#{livroController.salvar}" value="salvar"
 				update="@form" />
